@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Student Management System
 
 ## 📋 Project Overview
@@ -303,3 +304,6 @@ If you encounter any issues, check:
 ---
 
 **Good luck with your demonstration! Your teacher will be impressed! 🌟**
+=======
+# Software_Project
+>>>>>>> ee9151923adf80f74477bfb331404799a3316aaa
