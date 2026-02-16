@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Student Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .alert {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .alert-error {
+            background-color: #fee;
+            color: #c33;
+            border: 1px solid #fcc;
+        }
+        .alert-success {
+            background-color: #efe;
+            color: #3c3;
+            border: 1px solid #cfc;
+        }
+        .credentials-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #666;
+        }
+        .credentials-info h4 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .credentials-info p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Student Management System</h2>
+
+        <div th:if="${param.error}" class="alert alert-error">
+            Invalid username or password!
+        </div>
+
+        <div th:if="${param.logout}" class="alert alert-success">
+            You have been logged out successfully!
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+        </form>
+
+        <div class="credentials-info">
+            <h4>Demo Credentials:</h4>
+            <p><strong>Teacher:</strong> teacher / teacher123</p>
+            <p><strong>Student:</strong> student / student123</p>
+        </div>
+    </div>
+</body>
+</html>
