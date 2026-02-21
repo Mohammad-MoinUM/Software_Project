@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=university_db'
+      - 'POSTGRES_PASSWORD=uniDB420'
+      - 'POSTGRES_USER=erp_user'
+    ports:
+      - '5433:5432'
+    volumes:
+      # Postgres 18+ expects the data directory under /var/lib/postgresql (not directly /var/lib/postgresql/data)
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U erp_user -d university_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - erp-network
+
+  # =============================================================================
+  # APPLICATION SERVICE (Your Spring Boot App)
+  # =============================================================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: university-erp-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/university_db
+      SPRING_DATASOURCE_USERNAME: erp_user
+      SPRING_DATASOURCE_PASSWORD: uniDB420
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - erp-network
+    restart: unless-stopped
+
+# =============================================================================
+# VOLUMES (Persistent data storage)
+# =============================================================================
+volumes:
+  postgres_data:
+    driver: local
+# =============================================================================
+# NETWORKS (Isolated network for services to communicate)
+# =============================================================================
+networks:
+  erp-network:
+    driver: bridge

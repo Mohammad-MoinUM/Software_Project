@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Home - University ERP</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .nav { margin-bottom: 20px; }
+    .nav a { margin-right: 15px; text-decoration: none; color: #008CBA; }
+    .logout-form { display: inline; }
+    .logout-btn { background: none; border: none; color: #008CBA; cursor: pointer; text-decoration: underline; padding: 0; font-size: inherit; }
+  </style>
+</head>
+<body>
+<h1>Welcome to University ERP</h1>
+
+<div class="nav">
+  <a th:href="@{/students}">Students</a>
+  <a th:href="@{/teachers}">Teachers</a>
+  <a th:href="@{/departments}">Departments</a>
+  <a th:href="@{/courses}">Courses</a>
+
+  <!-- Logout as a POST form -->
+  <form th:action="@{/logout}" method="post" class="logout-form">
+    <button type="submit" class="logout-btn">Logout</button>
+  </form>
+</div>
+
+<p>You are logged in as: <strong th:text="${#authentication.name}">User</strong></p>
+</body>
+</html>

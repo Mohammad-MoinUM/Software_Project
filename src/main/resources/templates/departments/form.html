@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Department Form</title>
+  <style>
+    form { max-width: 400px; }
+    label { display: block; margin-top: 10px; }
+    input { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+    button { margin-top: 15px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+    .nav { margin-bottom: 20px; }
+    .nav a { margin-right: 15px; text-decoration: none; color: #008CBA; }
+  </style>
+</head>
+<body>
+<h1>Department Form</h1>
+
+<div class="nav">
+  <a th:href="@{/departments}">Back to List</a>
+</div>
+
+<form th:action="${department.id} != null ? @{/departments/update} : @{/departments}"
+      th:object="${department}"
+      method="POST">
+
+  <input type="hidden" th:field="*{id}" />
+
+  <label>Department Name:</label>
+  <input type="text" th:field="*{name}" required />
+
+  <button type="submit">Save Department</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Teacher Form</title>
+    <style>
+        form { max-width: 400px; }
+        label { display: block; margin-top: 10px; }
+        input { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+        button { margin-top: 15px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; text-decoration: none; color: #008CBA; }
+    </style>
+</head>
+<body>
+<h1>Teacher Form</h1>
+
+<div class="nav">
+    <a th:href="@{/teachers}">Back to List</a>
+</div>
+
+<form th:action="${teacher.id} != null ? @{/teachers/update} : @{/teachers}"
+      th:object="${teacher}"
+      method="POST">
+
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" required />
+
+    <label>Employee ID:</label>
+    <input type="number" th:field="*{employeeId}" required />
+
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" required />
+
+    <label>Password:</label>
+    <input type="password" th:field="*{password}" required />
+
+    <button type="submit">Save Teacher</button>
+</form>
+</body>
+</html>

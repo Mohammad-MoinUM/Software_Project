@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Form</title>
+    <style>
+        form { max-width: 400px; }
+        label { display: block; margin-top: 10px; }
+        input { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+        button { margin-top: 15px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+<h1>Student Form</h1>
+
+<!-- th:object binds to the 'student' attribute in Model -->
+<form th:action="${student.id} != null ? @{/students/update} : @{/students}"
+      th:object="${student}"
+      method="POST">
+
+    <!-- Hidden field for ID (needed for update) -->
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" required />
+
+    <label>Roll:</label>
+    <input type="number" th:field="*{roll}" required />
+
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" required />
+
+    <label>Password:</label>
+    <input type="password" th:field="*{password}" required />
+
+    <button type="submit">Save Student</button>
+</form>
+
+<br>
+<a th:href="@{/students}">Back to List</a>
+</body>
+</html>

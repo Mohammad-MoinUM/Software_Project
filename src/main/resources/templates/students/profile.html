@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>My Profile</title>
+    <style>
+        form { max-width: 400px; }
+        label { display: block; margin-top: 10px; }
+        input { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+        button { margin-top: 15px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; text-decoration: none; color: #008CBA; }
+        .success { color: green; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+<h1>My Profile</h1>
+
+<div class="nav">
+    <a th:href="@{/students}">Back to Students</a>
+</div>
+
+<div th:if="${param.success}" class="success">
+    Profile updated successfully!
+</div>
+
+<form th:action="@{/students/profile/update}"
+      th:object="${student}"
+      method="POST">
+
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" required />
+
+    <label>Roll:</label>
+    <input type="number" th:field="*{roll}" disabled />
+    <small style="color: #666;">Roll number cannot be changed</small>
+
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" disabled />
+    <small style="color: #666;">Email cannot be changed</small>
+
+    <label>Password:</label>
+    <input type="password" th:field="*{password}" disabled />
+    <small style="color: #666;">Contact admin to change password</small>
+
+    <button type="submit">Update Profile</button>
+</form>
+</body>
+</html>

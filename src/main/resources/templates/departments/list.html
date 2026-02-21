@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Department List</title>
+  <style>
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .btn { padding: 5px 10px; text-decoration: none; color: white; border-radius: 3px; }
+    .btn-edit { background-color: #4CAF50; }
+    .btn-delete { background-color: #f44336; }
+    .btn-add { background-color: #008CBA; margin-bottom: 10px; display: inline-block; }
+    .nav { margin-bottom: 20px; }
+    .nav a { margin-right: 15px; text-decoration: none; color: #008CBA; }
+    .logout-form { display: inline; }
+    .logout-btn { background: none; border: none; color: #008CBA; cursor: pointer; text-decoration: underline; padding: 0; font-size: inherit; }
+    .role-badge { background-color: #ff9800; color: white; padding: 3px 8px; border-radius: 3px; font-size: 12px; }
+  </style>
+</head>
+<body>
+<h1>Department List</h1>
+
+<p>
+  Logged in as: <strong th:text="${#authentication.name}">User</strong>
+  <span class="role-badge" sec:authorize="hasRole('TEACHER')">TEACHER</span>
+  <span class="role-badge" sec:authorize="hasRole('STUDENT')">STUDENT</span>
+</p>
+
+<div class="nav">
+  <a th:href="@{/}">Home</a>
+  <a th:href="@{/students}">Students</a>
+  <a th:href="@{/teachers}">Teachers</a>
+  <a th:href="@{/departments}">Departments</a>
+  <a th:href="@{/courses}">Courses</a>
+  <a th:href="@{/students/profile}" sec:authorize="hasRole('STUDENT')">My Profile</a>
+  <form th:action="@{/logout}" method="post" class="logout-form">
+    <button type="submit" class="logout-btn">Logout</button>
+  </form>
+</div>
+
+<!-- Only TEACHER can see Add button -->
+<a th:href="@{/departments/new}" class="btn btn-add" sec:authorize="hasRole('TEACHER')">Add New Department</a>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th sec:authorize="hasRole('TEACHER')">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="department : ${departments}">
+    <td th:text="${department.id}"></td>
+    <td th:text="${department.name}"></td>
+    <!-- Only TEACHER can see Edit/Delete buttons -->
+    <td sec:authorize="hasRole('TEACHER')">
+      <a th:href="@{/departments/edit/{id}(id=${department.id})}" class="btn btn-edit">Edit</a>
+      <a th:href="@{/departments/delete/{id}(id=${department.id})}"
+         class="btn btn-delete"
+         onclick="return confirm('Are you sure?')">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
