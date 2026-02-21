@@ -1,26 +1,29 @@
-# Ignore Maven build artifacts
+# Prevent unnecessary files from being copied into Docker image
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
-# Ignore IDE files
+# IDE files
 .idea/
 *.iml
-*.iws
 *.ipr
+*.iws
 .vscode/
-.classpath
-.project
-.settings/
 
-# Ignore OS files
+# Git files
+.git/
+.gitignore
+
+# Test files
+src/test/
+
+# Documentation
+*.md
+docs/
+
+# OS files
 .DS_Store
 Thumbs.db
 
-# Ignore logs
+# Logs
 *.log
-
-# Ignore temporary files
-*.tmp
-*.bak
-*.swp
-*~.nib
+logs/
